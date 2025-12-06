@@ -346,22 +346,30 @@ else:
     
     with col1:
         # Probability of exceeding targets
-        # Initialize target in session state if needed
-        if 'target_throughput' not in st.session_state:
-            st.session_state.target_throughput = int(baseline_results['total_throughput'])
+        st.markdown("**Enter Your Target:**")
         
-        target_input = st.number_input(
+        # Use text input with number validation - avoids widget state issues
+        default_target = str(int(baseline_results['total_throughput']))
+        
+        target_text = st.text_input(
             "Target Throughput ($):",
-            min_value=0,
-            max_value=int(max_throughput),
-            value=st.session_state.target_throughput,
-            step=100,
-            key='target_input_widget',
-            help="Enter any target value to see probability of achieving it"
+            value=default_target,
+            help="Enter any target value to see probability of achieving it",
+            placeholder="e.g., 5000"
         )
         
-        # Update session state when user changes value
-        st.session_state.target_throughput = target_input
+        # Convert to number and validate
+        try:
+            target_input = int(target_text.replace(',', '').replace('$', ''))
+            if target_input < 0:
+                target_input = int(baseline_results['total_throughput'])
+                st.warning("Target must be positive. Using baseline.")
+            elif target_input > max_throughput:
+                target_input = int(max_throughput)
+                st.warning(f"Target exceeds maximum. Using ${target_input:,}")
+        except (ValueError, AttributeError):
+            target_input = int(baseline_results['total_throughput'])
+            st.warning(f"Invalid input. Using baseline: ${target_input:,}")
         
         prob_exceed = (df['throughput'] >= target_input).mean() * 100
         prob_below = (df['throughput'] < target_input).mean() * 100
