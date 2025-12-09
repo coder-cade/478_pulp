@@ -5,7 +5,7 @@ from pulp import *
 import pandas as pd
 
 def create_goal_optimization_model(
-    heat_treatment_capacity=160,
+    heat_treatment_capacity=150,
     machining_capacity=200,
     assembly_capacity=180,
     demand_a=50,
