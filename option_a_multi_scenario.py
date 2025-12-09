@@ -13,7 +13,7 @@ st.info("**What Python Can Do That Excel Cannot:** Compare 3 scenarios simultane
 # Initialize scenarios
 if 'scenarios' not in st.session_state:
     st.session_state.scenarios = {
-        'scenario1': {'name': 'Baseline', 'heat_treatment': 160, 'machining': 200, 'assembly': 180, 'demand_a': 50, 'demand_b': 80, 'profit_a': 90, 'profit_b': 60},
+        'scenario1': {'name': 'Baseline', 'heat_treatment': 150, 'machining': 200, 'assembly': 180, 'demand_a': 50, 'demand_b': 80, 'profit_a': 90, 'profit_b': 60},
         'scenario2': {'name': 'Elevate Bottleneck', 'heat_treatment': 200, 'machining': 200, 'assembly': 180, 'demand_a': 50, 'demand_b': 80, 'profit_a': 90, 'profit_b': 60},
         'scenario3': {'name': 'Premium Product A', 'heat_treatment': 160, 'machining': 200, 'assembly': 180, 'demand_a': 50, 'demand_b': 80, 'profit_a': 140, 'profit_b': 60}
     }
